@@ -52,4 +52,17 @@ describe('render', () => {
   });
 });
 
-describe('update state', () => {});
+describe('redux props', () => {
+  test('success piece of state from redux store is passed correctly', () => {
+    const success = true;
+    const wrapper = setup({ success });
+    const successProp = wrapper.instance().props.success;
+    expect(successProp).toBe(success);
+  });
+
+  test('action creator `guessWord` is a function', () => {
+    const wrapper = setup();
+    const guessWordProp = wrapper.instance().props.guessWord;
+    expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
