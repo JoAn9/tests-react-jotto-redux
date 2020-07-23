@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { guessWord } from './actions';
 
 // can not use functional component,
-// instance() returns null for stateless functional components(in test)
+// instance() returns null for stateless functional components (in test - enzyme)
+// can use props() for functional components (enzyme)
 
 class Input extends React.Component {
   render() {
