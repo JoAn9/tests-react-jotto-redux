@@ -6,17 +6,15 @@ import GuessedWords from './GuessedWords';
 import Input from './Input';
 import { getSecretWord } from './actions';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="container" data-test="component-app">
-        <h1>Jotto</h1>
-        <Input />
-        <Congrats />
-        <GuessedWords />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="container" data-test="component-app">
+      <h1>Jotto</h1>
+      <Input success={success} />
+      <Congrats />
+      <GuessedWords />
+    </div>
+  );
 }
 
 const mapStateToProps = store => ({
