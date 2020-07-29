@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { storeFactory } from './../test/testUtils';
-import App from './App';
+import App, { _App } from './App';
 
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
@@ -29,4 +29,24 @@ describe('test redux properties', () => {
     const wrapper = setup({ guessedWords });
     expect(wrapper.props().guessedWords).toEqual(guessedWords);
   });
+});
+
+test('`getSecretWord` runs on App mount', () => {
+  const getSecretWordMock = jest.fn();
+  const props = {
+    success: false,
+    guessedWords: [],
+    getSecretWord: getSecretWordMock,
+  };
+
+  React.useEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+  shallow(<_App {...props} />);
+
+  expect(getSecretWordMock.mock.calls.length).toBe(1);
+
+  // if <_App /> was a class...
+  // const getSecretWordMock = jest.fn();
+  // const wrapper = shallow(<_App getSecretWord={getSecretWordMock} />)
+  // wrapper.instance().componentDidMount();
+  // expect(getSecretWordMock.mock.calls.length).toBe(1);
 });

@@ -6,13 +6,16 @@ import GuessedWords from './GuessedWords';
 import Input from './Input';
 import { getSecretWord } from './actions';
 
-function App() {
+export function _App({ getSecretWord, success, guessedWords }) {
+  React.useEffect(() => {
+    getSecretWord();
+  }, []);
   return (
-    <div className="container" data-test="component-app">
+    <div className="container">
       <h1>Jotto</h1>
-      <Input success={success} />
-      <Congrats />
-      <GuessedWords />
+      <Input />
+      <Congrats success={success} />
+      <GuessedWords guessedWords={guessedWords} />
     </div>
   );
 }
@@ -23,4 +26,4 @@ const mapStateToProps = store => ({
   guessedWords: store.guessedWords,
 });
 
-export default connect(mapStateToProps, { getSecretWord })(App);
+export default connect(mapStateToProps, { getSecretWord })(_App);
