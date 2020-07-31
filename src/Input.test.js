@@ -74,8 +74,8 @@ describe('redux props', () => {
 
 describe('guessWord action creator', () => {
   const guessedWord = 'beer';
-  let mockGuessWord = jest.fn();
-  let mockSetGuessedWord = jest.fn();
+  const mockGuessWord = jest.fn();
+  const mockSetGuessedWord = jest.fn();
   let wrapper;
   let submitButton;
   let inputBox;
