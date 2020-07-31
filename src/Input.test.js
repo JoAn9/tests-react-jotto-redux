@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Input from './Input';
+import Input, { _Input } from './Input';
 import { storeFactory } from '../test/testUtils';
 
 const setup = (initialState = {}) => {
@@ -53,16 +53,52 @@ describe('render', () => {
 });
 
 describe('redux props', () => {
+  const createShallow = (initialState = {}) => {
+    const store = storeFactory(initialState);
+    const wrapper = shallow(<Input store={store} />).dive();
+    return wrapper;
+  };
+
   test('success piece of state from redux store is passed correctly', () => {
     const success = true;
-    const wrapper = setup({ success });
-    const successProp = wrapper.instance().props.success;
-    expect(successProp).toBe(success);
+    const wrapper = createShallow({ success });
+    expect(wrapper.props().success).toBe(success);
   });
 
   test('action creator `guessWord` is a function', () => {
-    const wrapper = setup();
-    const guessWordProp = wrapper.instance().props.guessWord;
+    const wrapper = createShallow();
+    const guessWordProp = wrapper.props().guessWord;
     expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
+
+describe('guessWord action creator', () => {
+  let mockGuessWord;
+  let wrapper;
+
+  beforeEach(() => {
+    mockGuessWord = jest.fn();
+    wrapper = shallow(<_Input guessWord={mockGuessWord} />);
+  });
+
+  test('guessWord action is called on clicking submit button', () => {
+    wrapper
+      .find('[data-test="submit-button"]')
+      .simulate('click', { preventDefault() {} });
+    // expect(mockGuessWord).toHaveBeenCalled();
+    expect(mockGuessWord.mock.calls.length).toBe(1);
+  });
+  test('guessWord action is called with proper argument', () => {
+    const guessedWord = 'beer';
+    React.useState = jest.fn(() => [guessedWord, jest.fn()]);
+
+    const inputBox = wrapper.find('[data-test="input-box"]');
+    const mockEvent = { target: { value: guessedWord } };
+    inputBox.simulate('change', mockEvent);
+    const submitButton = wrapper.find('[data-test="submit-button"]');
+    submitButton.simulate('click', { preventDefault() {} });
+    expect(mockGuessWord.mock.calls.length).toBe(1);
+    expect(mockGuessWord.mock.calls[0][0]).toBe(guessedWord);
+    // expect(mockGuessWord).toHaveBeenCalledWith(guessedWord);
   });
 });
