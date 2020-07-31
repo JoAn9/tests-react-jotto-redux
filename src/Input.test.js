@@ -73,32 +73,35 @@ describe('redux props', () => {
 });
 
 describe('guessWord action creator', () => {
-  let mockGuessWord;
+  const guessedWord = 'beer';
+  let mockGuessWord = jest.fn();
+  let mockSetGuessedWord = jest.fn();
   let wrapper;
+  let submitButton;
+  let inputBox;
 
   beforeEach(() => {
-    mockGuessWord = jest.fn();
+    mockGuessWord.mockClear();
     wrapper = shallow(<_Input guessWord={mockGuessWord} />);
+    React.useState = jest.fn(() => [guessedWord, mockSetGuessedWord]);
+
+    inputBox = wrapper.find('[data-test="input-box"]');
+    const mockEvent = { target: { value: guessedWord } };
+    inputBox.simulate('change', mockEvent);
+
+    submitButton = wrapper.find('[data-test="submit-button"]');
+    submitButton.simulate('click', { preventDefault() {} });
   });
 
   test('guessWord action is called on clicking submit button', () => {
-    wrapper
-      .find('[data-test="submit-button"]')
-      .simulate('click', { preventDefault() {} });
-    // expect(mockGuessWord).toHaveBeenCalled();
     expect(mockGuessWord.mock.calls.length).toBe(1);
   });
   test('guessWord action is called with proper argument', () => {
-    const guessedWord = 'beer';
-    React.useState = jest.fn(() => [guessedWord, jest.fn()]);
-
-    const inputBox = wrapper.find('[data-test="input-box"]');
-    const mockEvent = { target: { value: guessedWord } };
-    inputBox.simulate('change', mockEvent);
-    const submitButton = wrapper.find('[data-test="submit-button"]');
-    submitButton.simulate('click', { preventDefault() {} });
     expect(mockGuessWord.mock.calls.length).toBe(1);
     expect(mockGuessWord.mock.calls[0][0]).toBe(guessedWord);
     // expect(mockGuessWord).toHaveBeenCalledWith(guessedWord);
+  });
+  test('input-box is cleared after submitting', () => {
+    expect(mockSetGuessedWord).toHaveBeenCalledWith('beer');
   });
 });

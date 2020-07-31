@@ -50,6 +50,7 @@ export function _Input({ success, guessWord }) {
         onClick={e => {
           e.preventDefault();
           guessWord(currentGuess);
+          setCurrentGuess('');
         }}
       >
         Submit
