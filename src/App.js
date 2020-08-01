@@ -9,7 +9,7 @@ import { getSecretWord } from './actions';
 export function _App({ getSecretWord, success, guessedWords }) {
   React.useEffect(() => {
     getSecretWord();
-  }, []);
+  }, [getSecretWord]);
   return (
     <div className="container">
       <h1>Jotto</h1>
