@@ -40,6 +40,8 @@ test('`getSecretWord` runs on App mount', () => {
   };
 
   React.useEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+  // React.useEffect = jest.fn(f => f());
+
   shallow(<_App {...props} />);
 
   expect(mockGetSecretWord.mock.calls.length).toBe(1);

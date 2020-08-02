@@ -84,6 +84,7 @@ describe('guessWord action creator', () => {
     mockGuessWord.mockClear();
     wrapper = shallow(<_Input guessWord={mockGuessWord} />);
     React.useState = jest.fn(() => [guessedWord, mockSetGuessedWord]);
+    // React.useState = jest.fn().mockReturnValue([guessedWord, mockSetGuessedWord]);
 
     inputBox = wrapper.find('[data-test="input-box"]');
     const mockEvent = { target: { value: guessedWord } };
