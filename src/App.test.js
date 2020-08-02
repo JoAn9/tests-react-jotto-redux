@@ -32,17 +32,17 @@ describe('test redux properties', () => {
 });
 
 test('`getSecretWord` runs on App mount', () => {
-  const getSecretWordMock = jest.fn();
+  const mockGetSecretWord = jest.fn();
   const props = {
     success: false,
     guessedWords: [],
-    getSecretWord: getSecretWordMock,
+    getSecretWord: mockGetSecretWord,
   };
 
   React.useEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
   shallow(<_App {...props} />);
 
-  expect(getSecretWordMock.mock.calls.length).toBe(1);
+  expect(mockGetSecretWord.mock.calls.length).toBe(1);
 
   // if <_App /> was a class...
   // const getSecretWordMock = jest.fn();

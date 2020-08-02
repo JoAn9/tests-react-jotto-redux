@@ -102,6 +102,6 @@ describe('guessWord action creator', () => {
     // expect(mockGuessWord).toHaveBeenCalledWith(guessedWord);
   });
   test('input-box is cleared after submitting', () => {
-    expect(mockSetGuessedWord).toHaveBeenCalledWith('beer');
+    expect(inputBox.text()).toBe('');
   });
 });
