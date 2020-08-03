@@ -5,6 +5,7 @@ import Congrats from './Congrats';
 import GuessedWords from './GuessedWords';
 import Input from './Input';
 import { getSecretWord } from './actions';
+import TotalGuesses from './TotalGuesses';
 
 export function _App({ getSecretWord, success, guessedWords }) {
   React.useEffect(() => {
@@ -16,6 +17,7 @@ export function _App({ getSecretWord, success, guessedWords }) {
       <Input />
       <Congrats success={success} />
       <GuessedWords guessedWords={guessedWords} />
+      <TotalGuesses />
     </div>
   );
 }
