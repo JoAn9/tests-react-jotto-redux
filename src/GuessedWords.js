@@ -7,6 +7,7 @@ function GuessedWords({ guessedWords }) {
       <table data-test="table-guessedWords" className="table table-sm">
         <thead className="thead-light">
           <tr>
+            <th>#</th>
             <th>Guess</th>
             <th>Matching Letters</th>
           </tr>
@@ -14,6 +15,7 @@ function GuessedWords({ guessedWords }) {
         <tbody>
           {guessedWords.map((word, index) => (
             <tr data-test="table-row" key={index}>
+              <td data-test="guessed-word-index">{index + 1}</td>
               <td>{word.guessedWord}</td>
               <td>{word.lettersMatch}</td>
             </tr>

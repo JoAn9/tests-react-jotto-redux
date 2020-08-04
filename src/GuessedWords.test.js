@@ -43,4 +43,12 @@ describe('if there are words guessed', () => {
     const row = wrapper.find('[data-test="table-row"]');
     expect(row.length).toBe(guessedWords.length);
   });
+  test('renders correct index for each guessed word in row', () => {
+    const rowIndexes = wrapper.find('[data-test="guessed-word-index"]');
+    const rowIndexSet = new Set(rowIndexes.map(item => item.text()));
+    const expectedSet = new Set(
+      guessedWords.map((item, index) => String(index + 1))
+    );
+    expect(rowIndexSet).toEqual(expectedSet);
+  });
 });
