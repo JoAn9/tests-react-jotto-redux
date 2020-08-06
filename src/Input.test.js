@@ -94,7 +94,7 @@ describe('guessWord action creator', () => {
     submitButton.simulate('click', { preventDefault() {} });
   });
 
-  test('guessWord action is called on clicking submit button', () => {
+  test('guessWord action is called once on clicking submit button', () => {
     expect(mockGuessWord.mock.calls.length).toBe(1);
   });
   test('guessWord action is called with proper argument', () => {
@@ -104,5 +104,27 @@ describe('guessWord action creator', () => {
   });
   test('input-box is cleared after submitting', () => {
     expect(inputBox.text()).toBe('');
+  });
+});
+
+describe('Give Up button tests', () => {
+  test('button renders without error when success is false', () => {
+    const wrapper = setup({ success: false });
+    const component = wrapper.find('[data-test="component-give-up"]');
+    expect(component.length).toBe(1);
+    expect(component.text()).toBe('Give Up');
+  });
+  test('button does not render when success is true', () => {
+    const wrapper = setup({ success: true });
+    const component = wrapper.find('[data-test="component-give-up"]');
+    expect(component.length).toBe(0);
+  });
+  test('clicking on button giving up the game', () => {
+    const mockGiveUp = jest.fn();
+    const wrapper = shallow(<_Input success={false} giveUp={mockGiveUp} />);
+    const button = wrapper.find('[data-test="component-give-up"]');
+    button.simulate('click', { preventDefault() {} });
+    expect(mockGiveUp.mock.calls.length).toBe(1);
+    expect(mockGiveUp).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,38 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { guessWord } from './actions';
+import { guessWord, giveUp } from './actions';
 
-// can not use functional component, if want to use instance() from enzyme;
+// can not use instance() for functional component (enzyme);
 // instance() returns null for stateless functional components
 // can use props() instead, for functional components
 
-// export class _Input extends React.Component {
-//   render() {
-//     const content = this.props.success ? null : (
-//       <form className="form-inline">
-//         <input
-//           data-test="input-box"
-//           className="mb-2 mx-sm-3"
-//           type="text"
-//           placeholder="enter guess"
-//         />
-//         <button
-//           data-test="submit-button"
-//           className="btn btn-primary mb-2"
-//           type="submit"
-//           onClick={() => this.props.guessWord()}
-//         >
-//           Submit
-//         </button>
-//       </form>
-//     );
-
-//     return <div data-test="component-input">{content}</div>;
-//   }
-// }
-
-export function _Input({ success, guessWord }) {
+export function _Input({ success, guessWord, giveUp }) {
   const [currentGuess, setCurrentGuess] = React.useState('');
+  const giveUpHandler = e => {
+    e.preventDefault();
+    giveUp();
+  };
+  const submitHandler = e => {
+    e.preventDefault();
+    guessWord(currentGuess);
+    setCurrentGuess('');
+  };
   const content = success ? null : (
     <form className="form-inline">
       <input
@@ -47,13 +31,16 @@ export function _Input({ success, guessWord }) {
         data-test="submit-button"
         className="btn btn-primary mb-2"
         type="submit"
-        onClick={e => {
-          e.preventDefault();
-          guessWord(currentGuess);
-          setCurrentGuess('');
-        }}
+        onClick={submitHandler}
       >
         Submit
+      </button>
+      <button
+        data-test="component-give-up"
+        className="btn btn-danger mb-2"
+        onClick={giveUpHandler}
+      >
+        Give Up
       </button>
     </form>
   );
@@ -63,4 +50,4 @@ export function _Input({ success, guessWord }) {
 
 const mapStateToProps = ({ success }) => ({ success });
 
-export default connect(mapStateToProps, { guessWord })(_Input);
+export default connect(mapStateToProps, { guessWord, giveUp })(_Input);
