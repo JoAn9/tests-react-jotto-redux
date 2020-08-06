@@ -24,7 +24,7 @@ describe('guessWord action dispatcher', () => {
           },
         ],
       };
-      expect(newState).toEqual(expectedState);
+      expect(newState).toMatchObject(expectedState);
     });
     test('update state correctly for successful guess', () => {
       store.dispatch(guessWord(secretWord));
@@ -39,7 +39,7 @@ describe('guessWord action dispatcher', () => {
           },
         ],
       };
-      expect(newState).toEqual(expectedState);
+      expect(newState).toMatchObject(expectedState);
     });
   });
 
@@ -61,7 +61,7 @@ describe('guessWord action dispatcher', () => {
           { guessedWord: notCorrectGuess, lettersMatch: 3 },
         ],
       };
-      expect(newState).toEqual(expectedState);
+      expect(newState).toMatchObject(expectedState);
     });
     test('update state correctly for successful guess', () => {
       store.dispatch(guessWord(secretWord));
@@ -74,7 +74,7 @@ describe('guessWord action dispatcher', () => {
           { guessedWord: secretWord, lettersMatch: 5 },
         ],
       };
-      expect(newState).toEqual(expectedState);
+      expect(newState).toMatchObject(expectedState);
     });
   });
 });
