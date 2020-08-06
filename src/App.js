@@ -7,6 +7,7 @@ import Input from './Input';
 import { getSecretWord } from './actions';
 import TotalGuesses from './TotalGuesses';
 import NewWord from './NewWord';
+import FailureMsg from './FailureMsg';
 
 export function _App({ getSecretWord, success, guessedWords, secretWord }) {
   React.useEffect(() => {
@@ -15,6 +16,7 @@ export function _App({ getSecretWord, success, guessedWords, secretWord }) {
   return (
     <div className="container">
       <h1>Jotto</h1>
+      <FailureMsg />
       <h4>Secret word is: {secretWord}</h4>
       <Input />
       <Congrats success={success} />
