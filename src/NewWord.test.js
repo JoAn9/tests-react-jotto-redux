@@ -43,25 +43,3 @@ test('`resetGame` is called once on click', () => {
   buttonNewWord.simulate('click');
   expect(mockResetGame).toHaveBeenCalledTimes(1);
 });
-
-describe('`resetGame` action', () => {
-  beforeEach(() => moxios.install());
-  afterEach(() => moxios.uninstall());
-
-  test('new secret word is set', async () => {
-    const newSecretWord = 'scrum';
-    const store = storeFactory({ ...defaultProps });
-
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request.respondWith({
-        status: 200,
-        response: newSecretWord,
-      });
-    });
-
-    await store.dispatch(getSecretWord());
-    const newState = store.getState();
-    expect(newState.secretWord).toBe(newSecretWord);
-  });
-});
