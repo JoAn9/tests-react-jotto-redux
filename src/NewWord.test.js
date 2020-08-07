@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moxios from 'moxios';
 import { storeFactory } from '../test/testUtils';
 import NewWord, { _NewWord } from './NewWord';
-import { getSecretWord } from './actions';
 
 const defaultProps = { success: true };
 
@@ -24,6 +22,13 @@ describe('newWord component', () => {
     const wrapper = setup();
     const component = wrapper.find('[data-test="component-new-word"]');
     expect(component.length).toBe(1);
+  });
+  test('New Word button is displayed when `success` is false but `giveUp` state is true', () => {
+    const wrapper = setup({ success: false, giveUp: true });
+    const component = wrapper.find('[data-test="component-new-word"]');
+    expect(component.length).toBe(1);
+    expect(component.text()).not.toBe('');
+    expect(component.text()).toBe('New Word');
   });
   test('NewWord button is not displayed when `success` is false', () => {
     const success = false;

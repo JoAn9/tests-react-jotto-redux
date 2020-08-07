@@ -120,11 +120,13 @@ describe('Give Up button tests', () => {
     expect(component.length).toBe(0);
   });
   test('clicking on button giving up the game', () => {
-    const mockGiveUp = jest.fn();
-    const wrapper = shallow(<_Input success={false} giveUp={mockGiveUp} />);
+    const mockGiveUpAction = jest.fn();
+    const wrapper = shallow(
+      <_Input success={false} giveUpAction={mockGiveUpAction} />
+    );
     const button = wrapper.find('[data-test="component-give-up"]');
     button.simulate('click', { preventDefault() {} });
-    expect(mockGiveUp.mock.calls.length).toBe(1);
-    expect(mockGiveUp).toHaveBeenCalledTimes(1);
+    expect(mockGiveUpAction.mock.calls.length).toBe(1);
+    expect(mockGiveUpAction).toHaveBeenCalledTimes(1);
   });
 });
