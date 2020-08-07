@@ -17,12 +17,12 @@ export function _App({ getSecretWord, success, guessedWords, secretWord }) {
     <div className="container">
       <h1>Jotto</h1>
       <FailureMsg />
-      <h4>Secret word is: {secretWord}</h4>
       <Input />
       <Congrats success={success} />
       <NewWord />
       <GuessedWords guessedWords={guessedWords} />
       <TotalGuesses />
+      <h6 className="small">Secret word is: {secretWord}</h6>
     </div>
   );
 }
