@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import FailureMsg from './FailureMsg';
+import FailureMsg, { _FailureMsg } from './FailureMsg';
 import { storeFactory } from '../test/testUtils';
 
 const secretWord = 'scrum';
@@ -12,7 +12,7 @@ const setup = (initialState = {}) => {
   return wrapper;
 };
 
-describe('test FailureMsg when `giveUp` is true', () => {
+describe('test FailureMsg component when `giveUp` is true', () => {
   let component;
   beforeEach(() => {
     const wrapper = setup({ giveUp: true, secretWord });

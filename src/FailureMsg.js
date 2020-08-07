@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function FailureMsg({ giveUp, secretWord }) {
+export function _FailureMsg({ giveUp, secretWord }) {
   if (!giveUp) return null;
   return (
-    <div className="alert alert-danger" data-test="component-failure-msg">
-      The secret word was {secretWord}. Try again later.
+    <div data-test="component-failure-msg">
+      <div className="alert alert-danger">
+        The secret word was {secretWord}. <br /> Try again!
+      </div>
     </div>
   );
 }
@@ -16,9 +18,9 @@ const mapStateToProps = store => ({
   secretWord: store.secretWord,
 });
 
-export default connect(mapStateToProps, null)(FailureMsg);
+export default connect(mapStateToProps, null)(_FailureMsg);
 
-FailureMsg.propTypes = {
-  giveUp: PropTypes.bool.isRequired,
+_FailureMsg.propTypes = {
+  giveUp: PropTypes.bool,
   success: PropTypes.bool,
 };
